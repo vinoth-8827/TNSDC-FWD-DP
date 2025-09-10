@@ -1,207 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Portfolio</title>
-
-  <!-- CSS Styles -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinoth's Portfolio</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Global Styles */
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif;}
     body {
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      background: #121212;
-      transition: background 0.3s, color 0.3s;
+      background:#0f0f0f; color:#fff; line-height:1.6;
+      transition:background 0.3s, color 0.3s;
+    }
+    a {color:inherit; text-decoration:none;}
+    h1,h2,h3 {font-weight:600;}
+
+    /* Navbar */
+    nav {
+      position:fixed; top:0; left:0; width:100%;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:15px 8%; z-index:1000;
+      background:rgba(255,255,255,0.05); backdrop-filter:blur(10px);
+    }
+    nav h1 {color:#00ffc8; font-size:1.6rem;}
+    nav ul {display:flex; list-style:none; gap:25px;}
+    nav ul li a {transition:0.3s;}
+    nav ul li a:hover {color:#00ffc8;}
+
+    /* Hero Section */
+    #hero {
+      height:100vh; display:flex; flex-direction:column;
+      justify-content:center; align-items:center; text-align:center;
+      padding:0 10%;
+      background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+      url('https://source.unsplash.com/1600x900/?technology,abstract') center/cover no-repeat;
+    }
+    #hero h1 {font-size:3rem; color:#00ffc8; animation:fadeIn 2s ease;}
+    #hero p {margin-top:10px; font-size:1.2rem;}
+    #hero button {
+      margin-top:20px; padding:12px 25px; border:none;
+      background:#00ffc8; color:#000; border-radius:30px;
+      font-size:1rem; font-weight:bold; cursor:pointer;
+      transition:0.3s;
+    }
+    #hero button:hover {background:#00e6b0; transform:scale(1.05);}
+
+    /* About */
+    #about {padding:80px 10%; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+    #about img {width:100%; border-radius:15px; box-shadow:0 0 20px rgba(0,255,200,0.5);}
+    #about p {color:#ddd;}
+    
+    /* Skills */
+    #skills {padding:80px 10%;}
+    .skill {margin-bottom:20px;}
+    .progress {
+      background:#1e1e1e; border-radius:20px; overflow:hidden; height:12px;
+    }
+    .progress-bar {
+      background:#00ffc8; height:100%; width:0; border-radius:20px;
+      transition:width 2s ease;
     }
 
-    header, section {
-      padding: 60px 20px;
-      text-align: center;
-      position: relative;
-      z-index: 2;
+    /* Projects */
+    #projects {padding:80px 10%;}
+    .projects-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
     }
-
-    .highlight {
-      color: #00ffc8;
-    }
-
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #0f0f0f;
-      z-index: 0;
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
     .project-card {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      border-radius: 12px;
-      backdrop-filter: blur(6px);
-      transition: transform 0.3s;
+      background:rgba(255,255,255,0.05); padding:20px;
+      border-radius:15px; backdrop-filter:blur(10px);
+      transition:0.3s; text-align:center;
     }
+    .project-card:hover {transform:translateY(-10px); box-shadow:0 0 20px rgba(0,255,200,0.5);}
+    .project-card img {width:100%; border-radius:12px; margin-bottom:15px;}
+    .project-card h3 {margin-bottom:8px;}
 
-    .project-card:hover {
-      transform: scale(1.05);
-    }
-
-    .project-card a {
-      color: #00ffc8;
-      text-decoration: none;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
+    /* Contact */
+    #contact {padding:80px 10%; text-align:center;}
+    form {max-width:500px; margin:auto; display:flex; flex-direction:column; gap:15px;}
     form input, form textarea {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
+      padding:12px; border:none; border-radius:8px; outline:none;
     }
-
     form button {
-      background: #00ffc8;
-      color: #000;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      padding:12px; border:none; border-radius:8px;
+      background:#00ffc8; color:#000; font-weight:bold; cursor:pointer;
     }
+    form button:hover {background:#00e6b0;}
 
-    body.light-mode {
-      background: #f5f5f5;
-      color: #222;
-    }
+    /* Footer */
+    footer {text-align:center; padding:20px; background:#1e1e1e;}
 
-    body.light-mode .project-card {
-      background: rgba(0, 0, 0, 0.05);
-    }
+    /* Animations */
+    @keyframes fadeIn {from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);}}
 
-    body.light-mode a {
-      color: #006666;
-    }
-
-    #toggle-theme {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      background: #00ffc8;
-      color: #000;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+    /* Light Mode */
+    body.light-mode {background:#f5f5f5; color:#222;}
+    body.light-mode nav {background:rgba(0,0,0,0.05);}
+    body.light-mode .project-card {background:rgba(0,0,0,0.05);}
+    body.light-mode button, body.light-mode form button {background:#006666; color:#fff;}
   </style>
 </head>
-
 <body>
-  <!-- Particle background -->
-  <div id="particles-js"></div>
+  <!-- Navbar -->
+  <nav>
+    <h1>Vinoth's Portfolio</h1>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>👋 Hello, I'm <span class="highlight">VINOTH KUMAR</span></h1>
-    <p>A Front-End Developer passionate about building web experiences.</p>
-    <button id="toggle-theme">Toggle Theme</button>
-  </header>
+  <!-- Hero -->
+  <section id="hero">
+    <h1>Hello, I'm Vinoth 👋</h1>
+    <p>Front-End Developer | Creative Coder | Tech Enthusiast</p>
+    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+  </section>
 
-  <!-- Projects Section -->
+  <!-- About -->
+  <section id="about">
+    <img src="https://via.placeholder.com/400x400" alt="Vinoth Profile">
+    <div>
+      <h2>About Me</h2>
+      <p>
+        I'm Vinoth, a passionate front-end developer who loves blending creativity
+        with functionality. I build responsive, interactive websites with modern design trends.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>My Skills</h2>
+    <div class="skill">
+      <h3>HTML</h3>
+      <div class="progress"><div class="progress-bar" data-skill="90%"></div></div>
+    </div>
+    <div class="skill">
+      <h3>CSS</h3>
+      <div class="progress"><div class="progress-bar" data-skill="85%"></div></div>
+    </div>
+    <div class="skill">
+      <h3>JavaScript</h3>
+      <div class="progress"><div class="progress-bar" data-skill="75%"></div></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
   <section id="projects">
-    <h2>💼 Projects</h2>
-    <div class="project-grid">
+    <h2>Projects</h2>
+    <div class="projects-grid">
       <div class="project-card">
+        <img src="https://source.unsplash.com/400x250/?website" alt="Project 1">
         <h3>Portfolio Website</h3>
-        <p>A modern personal portfolio with dark mode and animations.</p>
-        <a href="#">View Project</a>
+        <p>My personal portfolio showcasing projects and skills.</p>
       </div>
       <div class="project-card">
+        <img src="https://source.unsplash.com/400x250/?app,design" alt="Project 2">
         <h3>Weather App</h3>
-        <p>Fetches weather data using an API with responsive design.</p>
-        <a href="#">View Project</a>
+        <p>Real-time weather updates using API integration.</p>
+      </div>
+      <div class="project-card">
+        <img src="https://source.unsplash.com/400x250/?dashboard" alt="Project 3">
+        <h3>Dashboard UI</h3>
+        <p>An interactive dashboard with charts and analytics.</p>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- Contact -->
   <section id="contact">
-    <h2>📬 Contact Me</h2>
+    <h2>Contact Me</h2>
     <form id="contact-form">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Your Message" required></textarea>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send</button>
     </form>
   </section>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Vinoth. All Rights Reserved.</p>
+    <button onclick="document.body.classList.toggle('light-mode')">Toggle Theme</button>
+  </footer>
 
+  <!-- JavaScript -->
   <script>
-    // Theme toggle
-    document.getElementById('toggle-theme').addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
+    // Animate skill bars on scroll
+    window.addEventListener("scroll", () => {
+      document.querySelectorAll(".progress-bar").forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight && bar.style.width === "") {
+          bar.style.width = bar.getAttribute("data-skill");
+        }
+      });
     });
 
-    // Contact form submission
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
+    // Contact form
+    document.getElementById("contact-form").addEventListener("submit", e => {
       e.preventDefault();
-      alert('Thank you for your message!');
-      this.reset();
-    });
-
-    // ParticlesJS config
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 60
-        },
-        "color": {
-          "value": "#00ffc8"
-        },
-        "shape": {
-          "type": "circle"
-        },
-        "opacity": {
-          "value": 0.5
-        },
-        "size": {
-          "value": 3
-        },
-        "move": {
-          "enable": true,
-          "speed": 1.5
-        }
-      },
-      "interactivity": {
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "repulse"
-          }
-        },
-        "modes": {
-          "repulse": {
-            "distance": 100
-          }
-        }
-      }
+      alert("Thanks for reaching out, Vinoth will reply soon!");
+      e.target.reset();
     });
   </script>
 </body>
